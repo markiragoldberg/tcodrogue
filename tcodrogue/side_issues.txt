@@ -1,0 +1,45 @@
+Secondary issues that need to be addressed at some point:
+
+Doors code is really lousy. Super lousy. Making actual formalized building furnishing functions should be a moderate priority, even if all they do is ensure the building has not-useless door placement.
+
+Quitting process needs to be standardized, with a quit action in one loop putting the entire game in a "quit" state that cancels all loops in due time. Having to click the 'x' is inelegant.
+			
+Directions used in direction.h NEED TO HAVE A PREFIX. SINGLE CHARACTER GLOBAL CONSTANTS ARE NOT ACCEPTABLE.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+PERFORMANCE ISSUES:
+
+Excessive use of strings:
+The game may be running considerably slower than it could because each individual tile is using a std::string as both descriptive name and unique terrain tile type identifier. That could be changed fairly easily to use an integer type as a terrain type ID, which would probably be a lot faster.
+	proposed reforms:
+		split the current "name" in data files into "name" and "id".
+			- "name" is the name shown in UI parts that name terrain symbols, like looking. it doesn't have to be unique, e.g. there can be two "door"s, and one is locked.
+			- "id" is only used internally, and has to be unique. e.g. the locked door has to be "door_locked" and not "door".
+			- when data files are loaded, the unique string ID is assigned a unique integer value. All further code uses this unique integer value as the terrain's ID, not the unique "id" string.
+			- when saving the game, part of the save file contains a key that explains which integer value corresponds to which unique id string. this is in case future versions add more terrain and wind up using different numerical IDs for the same tiles as previous versions.
+
+Many actors:
+The map currently stores actors as a vector. But Saint Roguedjack, martyr of Rogue Survivor, explains that it's better to do this by using a "list + hash". You use the list to iterate. The hash uses a "point" class (basically an x/y pair) as a key, so when looking for the actor at a specific position you use the hash instead of the list.
+The literal C++ equivalent of this would be a map or unordered map, both of which allow iteration and/or keys. Map is faster when iterating, unordered map when using keys. I'd guess that map is better for this purpose because you iterate through every single actor every single turn, but accessing a bunch of actors at once using keys would only happen if you're using explosives or there's a big aura going off or something.
+You can also generalize the use of maps to other stuff which may be accessed iteratively or through coordinates, like items, invisible stink trails, etc.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Several actions in creatureAction.cpp don't actually do anything.
+
+Several functions in dungeonMap should probably be private or friends-only or something like that.
+
+There's at least one point where the game assumes that there's at least one actor in the dungeonMap, and will crash if there isn't. That should be addressed somehow.
+
+Currently, it's assumed that the first creature in the dungeonMap will _always_ be the PC. That should be thought about.
+
+creatureAction has no setters and has to be recreated after initialization if it's not a pointer. Inelegant!
+
+keybindings are hardcoded. Softcoding these shouldn't be hard, though it may get a little laborious.
+
+~~~~~~
+There's no debug logging functionality.
+
+It should be possible to ask the dungeonMap for an iterator to the first creature, such as for when iterating over every creature on the map to give it its turn.
+
+The dungeonMap testMap, and its member functions, are probably a little too freely accessible than ideal for code safety.

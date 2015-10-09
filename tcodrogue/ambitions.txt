@@ -1,0 +1,50 @@
+Pig Farm city development needs:
+
+
+- Have a "nice" district generator that surrounds each building with streets or alleys, for use in policed areas where navigation should be easy. The streets and alleys should form a "net" that makes it easy to navigate.
+	Currently partially done.
+
+- Have a "mean" district generator that places buildings directly next to each other and connects them by making building-to-building alleys (shrinking/splitting buildings as necessary) or replacing existing buildings with open courtyards. This is for use in unpoliced areas where navigation should be difficult. Unlike the other generator, the alleys and open areas are not directly connected with all other connective regions. Connectivity is still guaranteed, but you sometimes have to go through buildings to get where you're going.
+
+- Upgrade the "nice" district generator to additionally be able to place district gates at random or previously generated locations on the edges of the district, and place roads and streets such that the gates are connected to each other elegantly.
+
+- Upgrade the "mean" district generator to do the same thing with smaller gates, and to connect these gates to buildings. Additionally be able to generate "hidden" gates that are harder to find, for access to truly isolated parts of the city.
+
+- Long term, it would be nice if rowhouses weren't perfectly straight... The simplest way to do this is to set ~half the rowhouses back 1 tile from the street. Having the street itself actually curve would be nice, but more difficult.
+
+- It would also, and more actionably, be nice if the rowhouses were of varying width. You generate random values for the width of each rowhouse; when you no longer have enough space to add more rowhouses, you add the remaining space randomly to existing rowhouses. This also simplifies the code somewhat since you aren't fighting hard to get the rowhouses as equally sized as possible.
+
+- Errors in rowhouse generation code have resulted in rowhouses that stray over the roads and wind up collding with other buildings. While undesirable for policed districts, they sometimes result in dead ends and cul-de-sacs that look neat. Having something similar in unpoliced districts would be great; it should be possible to ensure connectivity in spite of the houses.
+
+- Desired: Winnowing road network. Basically, at each step in the BSP process the roads get narrower. The first few roads that HAVE to connect the gates are 4 wide. The first 1-2 streets made by the BSP algorithm after that are 2 wide. The next 1-2 cuts made are 1 wide alleys. After that, the remaining blocks are connected with winding, 1-tile dead-end alleys; a room is placed in the block, an alley is pathed from the room's door to the street through the block, and the remaining unused spaces are built into rooms and connected to whatever's available.
+
+- Desired: Cul-de-sac generator.
+	You can make a cul-de-sac out of any partition that is large enough to be divided along both axes.
+	Basic gist:
+		1. Divide the root partition in two, but without placing a street or road between the child partitions.
+		2. Select one of the child partitions in it and place a building in it.
+		3. Select the other child partition, and divide it again, with the division being perpendicular to the first division.
+		
+		Pitfalls/notes:
+		- If you force the buildings forming the cul-de-sac to place their entrances on the inside of the cul-de-sac, you must also ensure that the cul-de-sac does not exit onto the edge of the map. You can do this by ensuring that, in step 2 above, you select the child partition whose border is entirely covered by the edge of the map, so that the other partition is used for the exit.
+		- You may want to place extra conditions on which partitions are used to form cul-de-sacs, such as only using elongated partitions and only placing rowhouses in step 3.
+		
+- Desired: street addresses.
+	- The game keeps track of buildings, streets, lots, and gives them names. That one rowhouse is "14 Grimbledown Alley", next to 13 and 15. The name of the current location is shown at all times, like a dungeon name/level in other roguelikes. Quests/leads target specific addresses, and you can ask people for directions to figure out how to get close to a specific address that your character knows is worth investigating.
+	
+- Desired: tall buildings / towers.
+	- Basically multi-level dungeons with many small floors that go up instead of down. Features:
+		- windows; see outside the tower.
+		- climbing up, down, or around the outside of the building, using tools or ledges surrounding the tower.
+		- hidden ledges with loot on the outside of the tower.
+		- birds, gargoyles, giant spiders/bugs, flying vampires, and other monsters lurking on the outside of the tower.
+		- flying away or rappeling down the side of the tower for a fast getaway.
+		- falling, being pushed, or dropped off the side of the tower, resulting in major injury or a splat on the pavers.
+		- towers go up in the air, so you're told about the presence of notable ones when you first enter a district or look at district information.
+		
+		
+	
+	
+	
+	
+
