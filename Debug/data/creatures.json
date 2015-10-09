@@ -1,0 +1,23 @@
+[{
+	"name" : "player",
+	"color" : [128,128,255],
+	"tile" : "@",
+	"max hp" : 12,
+	"damage" : 4
+},{
+	"name" : "human",
+	"color" : [128,255,128],
+	"tile" : "h"
+},{
+	"name" : "thief",
+	"color" : [255,128,128],
+	"tile" : "t",
+	"hostile" : true,
+	"max hp" : 8,
+	"damage" : 4
+},{
+	"name" : "cat",
+	"color" : [128,128,128],
+	"tile" : "c",
+	"speed": 18
+}]

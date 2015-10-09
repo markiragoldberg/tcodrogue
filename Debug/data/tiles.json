@@ -1,0 +1,60 @@
+[{
+	"tile" : "debug",
+	"color" : [255,105,180],
+	"background" : [0,0,0],
+	"character" :  "!"
+},{
+	"tile" : "unknown",
+	"color" : [0,0,0],
+	"background" : [0,0,0],
+	"character" :  " "
+},{
+	"tile" : "grass",
+	"color" : [40,255,40],
+	"background" : [0,0,0],
+	"character" :  ".",
+	"walkable" : true,
+	"transparent" : true
+},{
+	"tile" : "dirt",
+	"color" : [51,26,15],
+	"background" : [0,0,0],
+	"character" :  "#",
+	"walkable" : true,
+	"transparent" : true
+},{
+	"tile" : "pavers",
+	"color" : [50,50,50],
+	"background" : [0,0,0],
+	"character" :  "%",
+	"walkable" : true,
+	"transparent" : true
+},{
+	"tile" : "floor",
+	"color" : [102,81,57],
+	"background" : [0,0,0],
+	"character" :  ".",
+	"walkable" : true,
+	"transparent" : true
+},{
+	"tile" : "wall",
+	"color" : [150,150,150],
+	"background" : [100,100,100],
+	"character" :  "#",
+	"walkable" : false,
+	"transparent" : false
+},{
+	"tile" : "door",
+	"color" :  [255,255,255],
+	"background" : [0,0,0],
+	"character" :  "+",
+	"walkable" : true,
+	"transparent" : false
+},{
+	"tile" : "window",
+	"color" : [255,255,255],
+	"background" : [150,150,150],
+	"character" :  "=",
+	"walkable" : false,
+	"transparent" : true
+}]
